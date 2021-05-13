@@ -8,4 +8,4 @@
 - После того, как пользователь переходит по определённой ссылке (*http://localhost:8080/emit*), в RabbitMQ посылается сообщение
 - Листенер просто выводит сообщение в лог
 - Отслеживать процессы в RabbitMQ можно через специальную **web консоль**:
-![](https://github.com/aleksey-nsk/rabbit_amqp/blob/master/screenshots/01_rabbit_web_console.png)
+![](https://github.com/aleksey-nsk/rabbit_amqp/blob/main/screenshots/01_rabbit_web_console.png)
