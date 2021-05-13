@@ -28,9 +28,9 @@ public class RabbitConfiguration {
         return new RabbitTemplate(connectionFactory());
     }
 
-    // Объявляем очередь с именем queue1
+    // Объявляем очередь
     @Bean
-    public Queue myQueue1() {
-        return new Queue("queue1");
+    public Queue myQueue() {
+        return new Queue(Utils.queueName);
     }
 }

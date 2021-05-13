@@ -5,7 +5,7 @@
 
 # Что было сделано:
 - Установлен **RabbitMQ Server** по [инструкции](https://coderun.ru/blog/kak-ustanovit-rabbitmq-server-v-ubuntu-18-04-i-16-04-lts/)
-- После того, как пользователь переходит по определённой ссылке (*http://localhost:8080/emit*), в RabbitMQ посылается сообщение
-- Листенер просто выводит сообщение в лог
+- После того, как пользователь переходит по определённой ссылке (*http://localhost:8080/emit*), в RabbitMQ посылаются сообщения
+- Листенеры просто выводят сообщения в лог
 - Отслеживать процессы в RabbitMQ можно через специальную **web консоль**:
 ![](https://github.com/aleksey-nsk/rabbit_amqp/blob/main/screenshots/01_rabbit_web_console.png)

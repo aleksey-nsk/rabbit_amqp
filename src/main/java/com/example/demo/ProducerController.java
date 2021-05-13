@@ -8,8 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Date;
-
 // В качестве продюссера будет контроллер, который будет посылать сообщения в RabbitMQ
 @Controller
 public class ProducerController {
@@ -21,14 +19,15 @@ public class ProducerController {
 
     @RequestMapping("/emit")
     @ResponseBody
-    String queue1() {
-        final String queueName = "queue1";
-        final String currentTime = (new Date()).toString();
-        final String message = "test message " + currentTime;
+    String sendMessage() {
+        String message;
 
-        logger.info("Отправляем сообщение '" + message + "' в очередь '" + queueName + "'");
-        template.convertAndSend(queueName, message); // отправляем сообщение
+        for (int i = 1; i <= 10; i++) {
+            message = "test message " + i;
+            logger.info("Отправляем сообщение '" + message + "' в очередь '" + Utils.queueName + "'");
+            template.convertAndSend(Utils.queueName, message); // отправляем сообщение
+        }
 
-        return "Сообщение '" + message + "' было отправлено";
+        return "Все сообщения были отправлены";
     }
 }
