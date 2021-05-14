@@ -16,16 +16,16 @@ public class RabbitMqListener {
     public static final Logger logger = LogManager.getLogger(RabbitMqListener.class);
 
     // Первый листенер
-    @RabbitListener(queues = Utils.queueName)
+    @RabbitListener(queues = Utils.queue1)
     public void listener1(String message) throws InterruptedException {
-        Thread.sleep(2_000L); // эмуляция полезной работы
-        logger.info("[listener 1] Из очереди '" + Utils.queueName + "' получено сообщение '" + message + "'");
+        Thread.sleep(20_000L); // эмуляция полезной работы
+        logger.info("[listener 1] Из очереди '" + Utils.queue1 + "' получено сообщение '" + message + "'");
     }
 
     // Второй листенер
-    @RabbitListener(queues = Utils.queueName)
+    @RabbitListener(queues = Utils.queue2)
     public void listener2(String message) throws InterruptedException {
-        Thread.sleep(10_000L);
-        logger.info("[listener 2] Из очереди '" + Utils.queueName + "' получено сообщение '" + message + "'");
+        Thread.sleep(40_000L);
+        logger.info("[listener 2] Из очереди '" + Utils.queue2 + "' получено сообщение '" + message + "'");
     }
 }
