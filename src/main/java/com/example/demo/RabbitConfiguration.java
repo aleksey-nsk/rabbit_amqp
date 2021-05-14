@@ -11,14 +11,16 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import static com.example.demo.RabbitParams.*;
+
 @EnableRabbit
 @Configuration
 public class RabbitConfiguration {
 
     public static final Logger logger = LogManager.getLogger(RabbitConfiguration.class);
 
-    // Настраиваем соединение с RabbitMQ
     private ConnectionFactory connectionFactory() {
+        logger.info("Настраиваем соединение с RabbitMQ");
         return new CachingConnectionFactory("localhost");
     }
 
@@ -31,50 +33,49 @@ public class RabbitConfiguration {
     public RabbitTemplate rabbitTemplate() {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory());
 
-        logger.info("Указываем обменник: '" + Utils.directExchange + "'");
-        rabbitTemplate.setExchange(Utils.directExchange);
+        logger.info("Указываем обменник: '" + directExchange + "'");
+        rabbitTemplate.setExchange(directExchange);
 
         return rabbitTemplate;
     }
 
-    // Объявляем очередь
     @Bean
     public Queue myQueue1() {
-        logger.info("Объявляем очередь: '" + Utils.queue1 + "'");
-        return new Queue(Utils.queue1);
+        logger.info("Объявляем очередь: '" + queue1 + "'");
+        return new Queue(queue1);
     }
 
     @Bean
     public Queue myQueue2() {
-        logger.info("Объявляем очередь: '" + Utils.queue2 + "'");
-        return new Queue(Utils.queue2);
+        logger.info("Объявляем очередь: '" + queue2 + "'");
+        return new Queue(queue2);
     }
 
     // Используем routing key, в зависимости от которого сообщение может попасть
     // в одну из очередей или сразу в обе.
-    // Для этого используем DirectExchange
+    // Для этого нужен DirectExchange
     @Bean
     public DirectExchange directExchange() {
-        return new DirectExchange(Utils.directExchange);
+        return new DirectExchange(directExchange);
     }
 
     @Bean
     public Binding errorBinding1() {
-        return BindingBuilder.bind(myQueue1()).to(directExchange()).with(Utils.keyError);
+        return BindingBuilder.bind(myQueue1()).to(directExchange()).with(keyError);
     }
 
     @Bean
     public Binding errorBinding2() {
-        return BindingBuilder.bind(myQueue2()).to(directExchange()).with(Utils.keyError);
+        return BindingBuilder.bind(myQueue2()).to(directExchange()).with(keyError);
     }
 
     @Bean
     public Binding infoBinding() {
-        return BindingBuilder.bind(myQueue2()).to(directExchange()).with(Utils.keyInfo);
+        return BindingBuilder.bind(myQueue2()).to(directExchange()).with(keyInfo);
     }
 
     @Bean
     public Binding warningBinding() {
-        return BindingBuilder.bind(myQueue2()).to(directExchange()).with(Utils.keyWarning);
+        return BindingBuilder.bind(myQueue2()).to(directExchange()).with(keyWarning);
     }
 }
