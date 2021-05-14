@@ -6,9 +6,6 @@ import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
-// В данном примере одну очередь
-// слушают два листенера
-
 @EnableRabbit // нужна для активации обработки аннотаций @RabbitListener
 @Component
 public class RabbitMqListener {
@@ -18,14 +15,14 @@ public class RabbitMqListener {
     // Первый листенер
     @RabbitListener(queues = Utils.queue1)
     public void listener1(String message) throws InterruptedException {
-        Thread.sleep(20_000L); // эмуляция полезной работы
+        Thread.sleep(2_000L); // эмуляция полезной работы
         logger.info("[listener 1] Из очереди '" + Utils.queue1 + "' получено сообщение '" + message + "'");
     }
 
     // Второй листенер
     @RabbitListener(queues = Utils.queue2)
     public void listener2(String message) throws InterruptedException {
-        Thread.sleep(40_000L);
+        Thread.sleep(10_000L);
         logger.info("[listener 2] Из очереди '" + Utils.queue2 + "' получено сообщение '" + message + "'");
     }
 }

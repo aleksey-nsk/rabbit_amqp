@@ -8,8 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Date;
-
 // В качестве продюссера будет контроллер, который будет посылать сообщения в RabbitMQ
 @Controller
 public class ProducerController {
@@ -25,16 +23,39 @@ public class ProducerController {
         return "This is home page";
     }
 
-    @RequestMapping("/emit")
+    @RequestMapping("/emit/error")
     @ResponseBody
-    String emit() {
-        final String currentTime = (new Date()).toString();
-        final String message = "test message " + currentTime;
-        logger.info("Отправляем сообщение '" + message + "' в обменник '" + Utils.fanoutExchange + "'");
+    String emitError() {
+        final String message = "error message";
+        logger.info("Отправляем сообщение '" + message + "' в обменник");
 
-        template.setExchange(Utils.fanoutExchange); // указываем обменник
-        template.convertAndSend(message); // отправляем сообщение в обменник
+        // При отправке сообщения в обменник указываем routing key
+        template.convertAndSend(Utils.keyError, message);
 
-        return "Сообщение '" + message + "' было отправлено";
+        return "Сообщение '" + message + "' было отправлено в обменник";
+    }
+
+    @RequestMapping("/emit/info")
+    @ResponseBody
+    String emitInfo() {
+        final String message = "info message";
+        logger.info("Отправляем сообщение '" + message + "' в обменник");
+
+        // При отправке сообщения в обменник указываем routing key
+        template.convertAndSend(Utils.keyInfo, message);
+
+        return "Сообщение '" + message + "' было отправлено в обменник";
+    }
+
+    @RequestMapping("/emit/warning")
+    @ResponseBody
+    String emitWarning() {
+        final String message = "warning message";
+        logger.info("Отправляем сообщение '" + message + "' в обменник");
+
+        // При отправке сообщения в обменник указываем routing key
+        template.convertAndSend(Utils.keyWarning, message);
+
+        return "Сообщение '" + message + "' было отправлено в обменник";
     }
 }
