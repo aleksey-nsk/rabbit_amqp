@@ -11,3 +11,4 @@
 ![](https://github.com/aleksey-nsk/rabbit_amqp/blob/main/screenshots/02_example4_routing.png)
 - Отслеживать процессы в RabbitMQ можно через специальную **web консоль**:
 ![](https://github.com/aleksey-nsk/rabbit_amqp/blob/main/screenshots/01_rabbit_web_console.png)
+
